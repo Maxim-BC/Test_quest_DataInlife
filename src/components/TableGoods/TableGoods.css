@@ -1,0 +1,16 @@
+.table-goods__td {
+  width: 20%;
+  border-right: solid black 1px;
+  border-top: solid black 1px;
+}
+
+.table-goods__td-sum {
+  border-right: none;
+  border-top: solid black 1px;
+}
+
+.table-goods__tr {
+  height: 50px;
+  border: 1px solid black;
+  background-color: rgb(250, 228, 196);
+}

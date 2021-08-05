@@ -1,0 +1,16 @@
+.box-table-title {
+  font-weight: 600;
+  font-size: 18px;
+  border: solid 2px black;
+  border-bottom: none;
+  padding: 10px;
+}
+
+.box-table {
+  border-spacing: 0px;
+  margin: 20px 10px 0px 20px;
+  width: 60%;
+  border: solid 2px black;
+  border-top: none;
+  height: min-content;
+}
