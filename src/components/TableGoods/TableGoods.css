@@ -7,10 +7,14 @@
 .table-goods__td-sum {
   border-right: none;
   border-top: solid black 1px;
+  background-color: rgba(250, 228, 196, 0.589);
 }
 
 .table-goods__tr {
   height: 50px;
   border: 1px solid black;
-  background-color: rgb(250, 228, 196);
+  background-color: rgba(250, 228, 196, 0.589);
+}
+.table-goods__input {
+  width: 90%;
 }
