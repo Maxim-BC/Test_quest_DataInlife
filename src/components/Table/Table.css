@@ -28,8 +28,10 @@
 }
 
 .form__table {
-  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
+  max-height: calc(90vh - 110px);
+  overflow-x: hidden;
+  overflow-y: auto;
 }

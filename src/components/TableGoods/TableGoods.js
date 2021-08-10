@@ -3,25 +3,25 @@ import "./TableGoods.css";
 import { useParams } from "react-router-dom";
 export default function TableGoods({ name, index, id, price, changeArray }) {
   const [quantityGoods, setQuantityGoods] = useState("");
-  const [nameGoods, setNameGoods] = useState(name);
-  const [priceGoods, setPriceGoods] = useState(price);
-  const [ridGoods, setRidGoods] = useState(id);
+  const [nameGoods] = useState(name);
+  const [priceGoods] = useState(price);
+  const [ridGoods] = useState(id);
   const [sumGoods, setSumGoods] = useState("");
   const params = useParams();
 
   useEffect(() => setQuantityGoods(""), [params.id]);
 
   const changeQuantity = (e) => {
-    setRidGoods(ridGoods);
     if (
       10001 > e.target.value &&
       e.target.value > -1 &&
-      e.target.value !== "-"
+      e.target.value !== "-" &&
+      e.target.value[0] !== "0"
     ) {
-      setQuantityGoods();
+      setQuantityGoods(e.target.value);
       setSumGoods(priceGoods * e.target.value);
-      changeArray(ridGoods, e.target.value);
-    }
+      changeArray(ridGoods, e.target.value, priceGoods * e.target.value);
+    } else return;
   };
 
   return (
@@ -38,6 +38,7 @@ export default function TableGoods({ name, index, id, price, changeArray }) {
             min="1"
             max="10000"
             className="table-goods__input"
+            placeholder="не более 10тыс"
           />
         </label>
       </td>

@@ -6,7 +6,8 @@ export async function getList() {
   return body;
 }
 
-export async function registerList(nameList, exercises) {
+export async function registerList(id, value) {
+  console.log(id, value);
   const response = await fetch(
     "https://datainlife.ru/junior_task/add_basket.php",
     {
@@ -14,13 +15,9 @@ export async function registerList(nameList, exercises) {
       headers: {
         "Content-Type": "application/json; charset=utf-8",
       },
-      body: FormData.stringify({
-        title: nameList,
-        exercises: exercises,
-      }),
+      body:`${id}:${value}`
     }
   );
-
   const responseBody = await response.json();
   console.log(responseBody);
   return responseBody;

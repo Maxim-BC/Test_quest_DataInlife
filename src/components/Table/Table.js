@@ -2,24 +2,25 @@ import React, { useState } from "react";
 import "./Table.css";
 import TableGoods from "../TableGoods/TableGoods";
 import Footer from "../Footer/Footer";
+import { registerList } from "../../api";
 export default function Table({ targetSections }) {
   const [arrayFavorites, setArrayFavorites] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
   const resulTitletargetSections =
     targetSections === undefined ? "" : targetSections.rname;
 
-  // const filterArray = (newArray, idProduct) => {
-  //   if (newArray.length > 1) {
-  //     const filterNewArray = newArray.filter((item) => item.id !== idProduct);
+  // let formData = new FormData();
 
-  //     setArrayFavorites(filterNewArray)
-  //     console.log(arrayFavorites);
-  //   } else setArrayFavorites(newArray);
-  // };
-
-  const changeArray = (idProduct, quantityGoods) => {
+  const changeArray = (idProduct, quantityGoods, sumPrice) => {
+    // formData.set(`product[${idProduct}]`, quantityGoods);
     const array = arrayFavorites;
     const filterNewArray = array.filter((item) => item.id !== idProduct);
-    const item = { id: idProduct, quantity: quantityGoods };
+    const item = {
+      id: idProduct,
+      quantity: quantityGoods,
+      totalPrice: sumPrice,
+    };
     const newArray = [...filterNewArray, item];
     setArrayFavorites(
       newArray.filter((item) => item.quantity !== "0" && item.quantity !== "")
@@ -27,35 +28,45 @@ export default function Table({ targetSections }) {
     console.log(arrayFavorites);
   };
 
-  // console.log(filterNewArray, ridGoods);
-
   const result =
-    targetSections === undefined
-      ? <tr><td>N/A</td></tr>
-      : targetSections.goods.map((item, index) => {
-          return (
-            <TableGoods
-              key={index}
-              id={item.gid}
-              name={item.gname}
-              price={item.gprice}
-              changeArray={changeArray}/>
-          );
-        });
-
+    targetSections === undefined ? (
+      <tr className="box-table__tr-none">
+        <td>N/A</td>
+      </tr>
+    ) : (
+      targetSections.goods.map((item) => {
+        return (
+          <TableGoods
+            key={item.gid}
+            id={item.gid}
+            name={item.gname}
+            price={item.gprice}
+            changeArray={changeArray}
+          />
+        );
+      })
+    );
   const submit = (e) => {
     e.preventDefault();
-    //   const result=e.target
-    //   const filterArr = result.filter((item) => item.attributes.4value > 0);
-    //   const newArray = [...filterArr];
-    console.log(e.target);
-    //   fetch('/api', {
-    //     method: 'POST',
-    //     body: JSON.stringify({ products }),
-    //     headers: { 'Content-Type': 'application/json' },
-    //   })
-    //     .then(res => res.json())
-    //     .then(json => setProducts(json.products))
+    // formData.forEach((value, key) => registerList(key, value));
+    arrayFavorites.forEach((item) =>
+      registerList(`product[${item.id}]`, item.quantity)
+    );
+
+    const arrPrice = arrayFavorites.map((item) => {
+      return +item.totalPrice;
+    });
+    const resultPrice = arrPrice.reduce(function (sum, elem) {
+      return sum + elem;
+    }, 0);
+    const arrQuantity = arrayFavorites.map((item) => {
+      return +item.quantity;
+    });
+    const resultQuantity = arrQuantity.reduce(function (sum, elem) {
+      return sum + elem;
+    }, 0);
+    setTotalPrice(resultPrice);
+    setTotalQuantity(resultQuantity);
   };
 
   return (
@@ -75,7 +86,7 @@ export default function Table({ targetSections }) {
         </thead>
         <tbody>{result}</tbody>
       </table>
-      <Footer />
+      <Footer totalPrice={totalPrice} totalQuantity={totalQuantity} />
     </form>
   );
 }

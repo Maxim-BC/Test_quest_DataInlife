@@ -1,5 +1,13 @@
 .product-sectons__link {
-  font-size: 16px;
+  font-size: 18px;
   width: 100%;
   margin: 5px;
+  text-decoration: none;
+  background-color: rgba(35, 85, 224, 0.897);
+  padding: 5px 5px;
+  color: rgb(255, 255, 255);
+  border-radius: 10px;
+}
+.none {
+  display: none;
 }

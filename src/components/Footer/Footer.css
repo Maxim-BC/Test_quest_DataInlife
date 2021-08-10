@@ -17,4 +17,25 @@
     height: 30px;
     width: 150px;
     cursor: pointer;
+    border-radius: 10px;
+    color: rgb(47, 46, 46);
+    background-color: rgb(255, 204, 109);
+    border: solid 1px rgb(0, 0, 0);
+    font-size: 18px
+}
+
+.footer-text{
+    font-weight: 600;
+    font-size: 18px;
+    margin: 3px;
+}
+
+.footer-box-text{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    border: black solid 2px;
+    padding: 5px;
+    width: 20%;
+    max-width: 300px;
 }
